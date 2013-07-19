@@ -2,6 +2,8 @@
 
 SPAM is a module for simple node process management, and wraps the cluster module.
 
+NOT YET PUBLISHED - WORK IN PROGRESS
+
 ## Use
 
 To install:
