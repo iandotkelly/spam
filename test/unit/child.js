@@ -4,7 +4,7 @@
 
 'use strict';
 
-var Child = require('../../lib/Child'),
+var Child = require('../../lib/child'),
 	should = require('should'),
 	assert = require('assert');
 
