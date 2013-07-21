@@ -17,8 +17,8 @@ To create some processes:
 ```javascript
 var spam = require('spam');
 
-// to create 4 processes using the myscript.js script
-spam.spawn('./myscript.js', { number: 4, timeout: 60000 ), function(err) {
+// to create 4 processes using the myscript.js script 
+spam.spawn('./myscript.js', { number: 4, timeout: 60000, strategy: 'parallel' ), function(err) {
 	// callback occurs when all processes have declared they are working
 	// or a timeout occurs
 	if (err) {
@@ -37,7 +37,7 @@ spam.on('log', function(message) {
 
 ```javascript
 // graceful restart of all the processes
-spam.restart(function(err) {
+spam.restart({ strategy: 'series' }, function(err) {
 	if (err) {
 		console.log('oops');
 	}
