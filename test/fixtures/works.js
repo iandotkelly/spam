@@ -2,6 +2,8 @@
 
 console.log('hi - i\'m a worker');
 
+var ready = require('../../lib/signal').ready;
+
 function wait(fn) {
   setTimeout(fn, 200);
 }
@@ -18,7 +20,7 @@ wait(function () {
       console.log('step 3');
       wait(function () {
         console.log('ready');
-		    process.send({cmd: 'ready'});
+		    ready();
         forever();
       });
     });
