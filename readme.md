@@ -17,7 +17,7 @@ To create some processes, using the spawn method.  This takes the following para
   - number (number of processes to spawn, e.g. 4)
   - timeout (time in milliseconds to allow each spawn to occur, before timing out)
   - strategy (either 'series', or 'parallel', to spawn one at a time, or all together)
-- Callback when complete
+- Callback when initialization of the module is complete
 
 ```javascript
 var spam = require('spam');
@@ -52,20 +52,35 @@ spam.restart({ strategy: 'series' }, function(err) {
 });
 ```
 
+To stop all the processes:
+```javascript
+// stop all
+spam.stop(function() {
+	console.log('stop initiated')
+});
+```
+
+
 NOTE: The scripts that are run, need to emit a 'ready' message when they have initialized.  If they 
-do not do this, then SPAM will assume they've not started and time them out.
+do not do this, then SPAM will assume they've not started and time them out.  This can be performed using spam's signal module, 
+or simply using process.send:
 
 ```javascript
+// using the signal module
 var signal = require('spam').signal;
 signal.ready();
+
+// using the process.send method
+process.send({ cmd: 'ready'});
 ```
+
 
 ### Tests
 
 To run the npm unit tests, install development dependencies and run tests with 'npm test' or 'make'.
 
 ```sh
-$ cd nlf
+$ cd node_modules/spam
 $ npm install
 $ npm test
 ```
