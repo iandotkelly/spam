@@ -73,6 +73,7 @@ describe('Backoff', function () {
 				// the delay should be at least 100ms
 				var elapsed = end.getTime() - start.getTime();
 				elapsed.should.be.greaterThan(99.9);
+				elapsed.should.be.lessThan(105);
 				done();
 			});
 
@@ -89,6 +90,7 @@ describe('Backoff', function () {
 				// the delay should be at least 100ms
 				var elapsed = end.getTime() - start.getTime();
 				elapsed.should.be.greaterThan(199.9);
+				elapsed.should.be.lessThan(205);
 				done();
 			});
 
@@ -105,6 +107,7 @@ describe('Backoff', function () {
 				// the delay should be at least 100ms
 				var elapsed = end.getTime() - start.getTime();
 				elapsed.should.be.greaterThan(399.9);
+				elapsed.should.be.lessThan(405);
 				done();
 			});
 
@@ -128,9 +131,9 @@ describe('Backoff', function () {
 
 
 
-	describe('backoff method with multipier of 4, startMs of 200ms and maxMs of 1000ms', function () {
+	describe('backoff method with multipier of 3, startMs of 50ms and maxMs of 200ms', function () {
 
-		var b = new Backoff( { startMs: 200, maxMs: 1000, multiplier: 4 });
+		var b = new Backoff( { startMs: 50, maxMs: 200, multiplier: 3 });
 
 		it('when called the first time should run immediately', function (done) {
 
@@ -147,7 +150,41 @@ describe('Backoff', function () {
 
 		});
 
-		it('when called the second time should be 200 or more ms later', function (done) {
+		it('when called the second time should be 50 or more ms later', function (done) {
+
+			var start = new Date();
+
+			b.backoff(function () {
+				var end = new Date();
+
+				// the delay should be at least 49.9ms
+				var elapsed = end.getTime() - start.getTime();
+				elapsed.should.be.greaterThan(49.9);
+				elapsed.should.be.lessThan(55);
+				done();
+			});
+
+		});
+
+
+		it('when called the third time should be 150 or more ms later', function (done) {
+
+			var start = new Date();
+
+			b.backoff(function () {
+				var end = new Date();
+
+				// the delay should be at least 150ms
+				var elapsed = end.getTime() - start.getTime();
+				elapsed.should.be.greaterThan(149.9);
+				elapsed.should.be.lessThan(155);
+				done();
+			});
+
+		});
+
+
+		it('when called the fourth time should be 200 or more ms later', function (done) {
 
 			var start = new Date();
 
@@ -157,54 +194,24 @@ describe('Backoff', function () {
 				// the delay should be at least 200ms
 				var elapsed = end.getTime() - start.getTime();
 				elapsed.should.be.greaterThan(199.9);
+				elapsed.should.be.lessThan(205);
 				done();
 			});
 
 		});
 
 
-		it('when called the third time should be 800 or more ms later', function (done) {
+		it('when called the fifth time should be 200 or more ms later', function (done) {
 
 			var start = new Date();
 
 			b.backoff(function () {
 				var end = new Date();
 
-				// the delay should be at least 800ms
+				// the delay should be at least 200ms
 				var elapsed = end.getTime() - start.getTime();
-				elapsed.should.be.greaterThan(799.9);
-				done();
-			});
-
-		});
-
-
-		it('when called the fourth time should be 1000 or more ms later', function (done) {
-
-			var start = new Date();
-
-			b.backoff(function () {
-				var end = new Date();
-
-				// the delay should be at least 1000ms
-				var elapsed = end.getTime() - start.getTime();
-				elapsed.should.be.greaterThan(999.9);
-				done();
-			});
-
-		});
-
-
-		it('when called the fifth time should be 1000 or more ms later', function (done) {
-
-			var start = new Date();
-
-			b.backoff(function () {
-				var end = new Date();
-
-				// the delay should be at least 1000ms
-				var elapsed = end.getTime() - start.getTime();
-				elapsed.should.be.greaterThan(999.9);
+				elapsed.should.be.greaterThan(199.9);
+				elapsed.should.be.lessThan(205);
 				done();
 			});
 
