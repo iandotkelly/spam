@@ -87,7 +87,7 @@ describe('Backoff', function () {
 			b.backoff(function () {
 				var end = new Date();
 
-				// the delay should be at least 100ms
+				// the delay should be at least 200ms
 				var elapsed = end.getTime() - start.getTime();
 				elapsed.should.be.greaterThan(198);
 				elapsed.should.be.lessThan(205);
@@ -104,7 +104,7 @@ describe('Backoff', function () {
 			b.backoff(function () {
 				var end = new Date();
 
-				// the delay should be at least 100ms
+				// the delay should be at least 400ms
 				var elapsed = end.getTime() - start.getTime();
 				elapsed.should.be.greaterThan(398);
 				elapsed.should.be.lessThan(405);
@@ -159,7 +159,7 @@ describe('Backoff', function () {
 
 				// the delay should be at least 49.9ms
 				var elapsed = end.getTime() - start.getTime();
-				elapsed.should.be.greaterThan(498);
+				elapsed.should.be.greaterThan(48);
 				elapsed.should.be.lessThan(55);
 				done();
 			});
