@@ -126,7 +126,7 @@ describe('Child', function () {
 
 	describe('stopping a working script', function () {
 
-		it('should eventually return ready and initialized', function (done) {
+		it('should move the state of the child to disconnecting', function (done) {
 			var c = new Child('./test/fixtures/works');
 
 			c.spawn(function (err) {
@@ -137,6 +137,30 @@ describe('Child', function () {
 				c.disconnect();
 				c.state.should.be.equal('disconnecting');
 				done();
+			});
+		});
+
+	});
+
+
+
+	describe('replacing a working script', function () {
+
+		it('should work', function (done) {
+			var c = new Child('./test/fixtures/works');
+
+			c.spawn(function (err) {
+				if (err) {
+					throw err;
+				}
+
+				c.replace(function (err) {
+					if (err) {
+						throw err;
+					}
+					done();
+
+				});
 			});
 		});
 
