@@ -119,6 +119,27 @@ describe('Child', function () {
 
 		});
 
+
+
+	});
+
+
+	describe('stopping a working script', function () {
+
+		it('should eventually return ready and initialized', function (done) {
+			var c = new Child('./test/fixtures/works');
+
+			c.spawn(function (err) {
+				if (err) {
+					throw err;
+				}
+
+				c.disconnect();
+				c.state.should.be.equal('disconnecting');
+				done();
+			});
+		});
+
 	});
 
 });
