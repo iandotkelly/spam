@@ -2,8 +2,6 @@
 
 SPAM is a module for simple node process management, and wraps the cluster module.
 
-NOT YET PUBLISHED - WORK IN PROGRESS
-
 ## Use
 
 To install:
@@ -12,7 +10,14 @@ To install:
 $ npm install spam
 ```
 
-To create some processes:
+To create some processes, using the spawn method.  This takes the following parameters:
+
+- Script
+- Configuration object
+  - number (number of processes to spawn, e.g. 4)
+  - timeout (time in milliseconds to allow each spawn to occur, before timing out)
+  - strategy (either 'series', or 'parallel', to spawn one at a time, or all together)
+- Callback when complete
 
 ```javascript
 var spam = require('spam');
@@ -35,6 +40,9 @@ spam.on('log', function(message) {
 });
 ```
 
+If you want to gracefully restart all the processes, by starting a new worker before killing 
+the old worker, do this with the restart method.
+
 ```javascript
 // graceful restart of all the processes
 spam.restart({ strategy: 'series' }, function(err) {
@@ -45,10 +53,11 @@ spam.restart({ strategy: 'series' }, function(err) {
 ```
 
 NOTE: The scripts that are run, need to emit a 'ready' message when they have initialized.  If they 
-do not do this, then SPAM will assume they've not started and time them out
+do not do this, then SPAM will assume they've not started and time them out.
 
 ```javascript
-process.send({cmd: 'ready'});
+var signal = require('spam').signal;
+signal.ready();
 ```
 
 ### Tests

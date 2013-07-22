@@ -2,7 +2,7 @@
 
 console.log('hi - i\'m a worker');
 
-var ready = require('../../lib/signal').ready;
+var signal = require('../../lib/spam').signal;
 
 function wait(fn) {
   setTimeout(fn, 200);
@@ -20,7 +20,7 @@ wait(function () {
       console.log('step 3');
       wait(function () {
         console.log('ready');
-		    ready();
+		    signal.ready();
         forever();
       });
     });
