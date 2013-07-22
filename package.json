@@ -3,7 +3,7 @@
   "title": "Simple Process Manager",
   "description": "Wrapper around cluster module to slightly simplify multi-process work",
   "author": "Ian Kelly <iandotkelly@gmail.com>",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "license": "MIT",
   "homepage": "https://github.com/iandotkelly/spam",
   "repository": {
@@ -11,16 +11,16 @@
     "url": "git://github.com/iandotkelly/spam.git"
   },
   "dependencies": {
-    "async": "latest"
+    "async": "~0.2.9"
   },
   "devDependencies": {
     "jshint": "~2.1.4",
     "should": "~1.2.2",
     "mocha": "~1.12.0",
-    "globs": "latest"
+    "globs": "~0.1.0"
   },
   "engines": {
-    "node": ">=0.6"
+    "node": ">=0.8"
   },
   "scripts": {
     "test": "make"
