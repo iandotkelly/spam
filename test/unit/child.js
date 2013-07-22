@@ -148,7 +148,9 @@ describe('Child', function () {
 
 		it('should work', function (done) {
 			var c = new Child('./test/fixtures/works');
-
+			c.on('log', function (message) {
+				console.log(message);
+			});
 			c.spawn(function (err) {
 				if (err) {
 					throw err;
@@ -158,8 +160,8 @@ describe('Child', function () {
 					if (err) {
 						throw err;
 					}
-					done();
 
+					done();
 				});
 			});
 		});
