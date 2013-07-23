@@ -24,7 +24,7 @@ describe('Backoff', function () {
 			b.maxMs.should.be.equal(60000);
 			b.multiplier.should.be.equal(2);
 			b.currentDelayMs.should.be.equal(0);
-			b.maxValue.should.be.equal(Number.MAX_VALUE / 2);
+			b.maxValue.should.be.equal(2592000000 / 2);
 		});
 
 		it('with an options object should set parameters', function () {
@@ -40,7 +40,7 @@ describe('Backoff', function () {
 			b.maxMs.should.be.equal(999);
 			b.multiplier.should.be.equal(15);
 			b.currentDelayMs.should.be.equal(0);
-			b.maxValue.should.be.equal(Number.MAX_VALUE / 15);
+			b.maxValue.should.be.equal(2592000000 / 15);
 		});
 	});
 

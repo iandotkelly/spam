@@ -28,7 +28,6 @@ describe('Child', function () {
 
 			c.should.be.an.object;
 			assert.strictEqual(null, c.worker);
-			assert.strictEqual(null, c.logCallback);
 			c.script.should.be.equal('./cats.js');
 			c.timeout.should.be.equal(0);
 			c.state.should.be.equal('new');
@@ -41,7 +40,6 @@ describe('Child', function () {
 
 			c.should.be.an.object;
 			assert.strictEqual(null, c.worker);
-			assert.strictEqual(null, c.logCallback);
 			c.script.should.be.equal('./cats.js');
 			c.timeout.should.be.equal(10000);
 			c.state.should.be.equal('new');
@@ -50,11 +48,11 @@ describe('Child', function () {
 
 
 		it('with a bad value for timeout should throw an error', function () {
-			(function() {
+			(function () {
 				var c = new Child('./cats.js', { timeout: 'fred' });
 			}).should.throw();
 
-			(function() {
+			(function () {
 				var c = new Child('./cats.js', { timeout: -1 });
 			}).should.throw();
 		});
@@ -64,25 +62,17 @@ describe('Child', function () {
 
 	describe('on', function () {
 
-		it('with a "log" listener, should add a callback', function () {
+		it('should be able to emit events - e.g. the log event', function (done) {
 
 			var c = new Child('./cats.js'),
-				f = function (message) { console.log(message); };
+				f = function (message) {
+					message.should.be.equal('cats');
+					done();
+				};
 
-			assert.strictEqual(null, c.logCallback);
 			c.on('log', f);
-			assert.strictEqual(f, c.logCallback);
-		});
-
-		// TODO: verify listeners are passed throguh and are not added to the child
-		it('other listeners are not added to the object', function () {
-
-			var c = new Child('./cats.js'),
-				f = function (message) { console.log(message); };
-
-			assert.strictEqual(null, c.logCallback);
-			c.on('cats', f);
-			assert.strictEqual(null, c.logCallback);
+			// check that we can emit a log event
+			c.emit('log', 'cats');
 		});
 	});
 
@@ -118,11 +108,7 @@ describe('Child', function () {
 			});
 
 		});
-
-
-
 	});
-
 
 	describe('stopping a working script', function () {
 
@@ -147,20 +133,24 @@ describe('Child', function () {
 	describe('replacing a working script', function () {
 
 		it('should work', function (done) {
-			var c = new Child('./test/fixtures/works');
-			c.on('log', function (message) {
-				console.log(message);
-			});
+			var c = new Child('./test/fixtures/works'),
+				worker = null;
+
 			c.spawn(function (err) {
 				if (err) {
 					throw err;
 				}
+				c.worker.should.be.an.object;
+				worker = c.worker;
 
 				c.replace(function (err) {
 					if (err) {
 						throw err;
 					}
 
+					c.worker.should.be.an.object;
+					// it should be a different worker
+					c.worker.should.not.be.equal(worker);
 					done();
 				});
 			});
