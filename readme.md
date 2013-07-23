@@ -22,14 +22,39 @@ To create some processes, using the spawn method.  This takes the following para
 ```javascript
 var spam = require('spam');
 
-// to create 4 processes using the myscript.js script 
-spam.spawn('./myscript.js', { number: 4, timeout: 60000, strategy: 'parallel' ), function(err) {
-	// callback occurs when all processes have declared they are working
-	// or a timeout occurs
-	if (err) {
-		console.log('oops');
-	}
+// to create 4 processes using the myscript.js script - ready on listen(),
+// created in parallel, with a timeout of 60 seconds
+spam.setScript('./myscript.js');
+spam.spawn(
+	{
+		number: 4,
+		timeout: 60000,
+		strategy: 'parallel'
+	}, function(err) {
+			// callback occurs when all processes have declared they are working
+			// or a timeout occurs
+			if (err) {
+				console.log('oops');
+			}
 });
+
+// to create 2 processes callback is called when 'ready' message sent, not on 'listen'
+// created in series, with no timeout
+spam.spawn(
+	{
+		number: 2,
+		timeout: 0,
+		strategy: 'serial',
+		readyOn: 'ready'
+	},  function(err) {
+			// callback occurs when all processes have declared they are working
+			// or a timeout occurs
+			if (err) {
+				console.log('oops');
+			}
+});
+
+
 ```
 
 If you want to log what's going on in SPAM
@@ -60,10 +85,9 @@ spam.stop(function() {
 });
 ```
 
-
-NOTE: The scripts that are run, need to emit a 'ready' message when they have initialized.  If they 
-do not do this, then SPAM will assume they've not started and time them out.  This can be performed using spam's signal module, 
-or simply using process.send:
+NOTE: The scripts that are run, either need to run server.listen() or emit a specific 'ready' message.
+If they do not do this, then SPAM will assume they've not started and time them out.  You can emit
+a 'ready' message using a convenience function or explicitly using process.send();
 
 ```javascript
 // using the signal module
@@ -73,7 +97,6 @@ signal.ready();
 // using the process.send method
 process.send({ cmd: 'ready'});
 ```
-
 
 ### Tests
 
