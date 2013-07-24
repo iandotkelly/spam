@@ -9,17 +9,20 @@ var Child = require('../../lib/child'),
 	should = require('should'),
 	assert = require('assert'),
 	path = require('path'),
-	spamPath = path.join(__dirname, '../../lib/spam.js');
+	spamPath = path.join(__dirname, '../../lib/spam.js'),
+	spam = require('../../lib/spam');
 
 if (require.cache[spamPath]){
   delete require.cache[spamPath];
 }
 
-require('../../lib/spam').setScript('./test/fixtures/worker');
+spam.setScript('./test/fixtures/worker');
+spam.setMaxListeners(15);
 
 describe('Child tests', function () {
 
 	before(function () {
+		// we want to run the child script with the worker result
 		process.env['SPAMTEST'] = 'worker';
 	});
 
