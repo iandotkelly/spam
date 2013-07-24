@@ -53,8 +53,6 @@ spam.spawn(
 				console.log('oops');
 			}
 });
-
-
 ```
 
 If you want to log what's going on in SPAM
