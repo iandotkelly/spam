@@ -5,7 +5,7 @@
 
 'use strict';
 
-var Child = require('../../lib/child'),
+var Child = process.env['SPAM_COV'] ? require('../../lib-cov/child') : require('../../lib/child'),
 	should = require('should'),
 	assert = require('assert'),
 	path = require('path'),
@@ -78,6 +78,7 @@ describe('Child (working script) tests.', function() {
 
 	describe('replacing a working script', function () {
 
+
 		it('should work', function (done) {
 			var c = new Child({ readyOn: 'ready' }),
 				worker = null;
@@ -99,6 +100,27 @@ describe('Child (working script) tests.', function() {
 					c.worker.should.not.be.equal(worker);
 					done();
 				});
+			});
+		});
+
+		it('with callback paraneter of the wrong type should throw', function () {
+
+			var c = new Child({ readyOn: 'ready' }),
+				worker = null;
+
+			c.spawn(function (err) {
+				if (err) {
+					throw err;
+				}
+
+				(function() {
+					c.replace(1);
+				}).should.throw();
+
+
+				(function() {
+					c.replace('cats');
+				}).should.throw();
 			});
 		});
 

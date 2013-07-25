@@ -5,7 +5,7 @@
 
 'use strict';
 
-var Child = require('../../lib/child'),
+var Child = process.env['SPAM_COV'] ? require('../../lib-cov/child') : require('../../lib/child'),
 	should = require('should'),
 	assert = require('assert'),
 	path = require('path'),
@@ -26,6 +26,21 @@ describe('Child (listening script) tests.', function () {
 	});
 
 	describe('Spawn of a script', function () {
+
+		it('with callback paraneter of the wrong type should throw', function () {
+			var c = new Child();
+
+			(function() {
+				c.spawn(1);
+			}).should.throw();
+
+
+			(function() {
+				c.spawn('cats');
+			}).should.throw();
+
+
+		});
 
 		it('should eventually return ready and initialized', function (done) {
 			var c = new Child({ readyOn: 'listening' });

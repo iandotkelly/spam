@@ -5,7 +5,7 @@
 
 'use strict';
 
-var Child = require('../../lib/child'),
+var Child = process.env['SPAM_COV'] ? require('../../lib-cov/child') : require('../../lib/child'),
 	should = require('should'),
 	assert = require('assert'),
 	path = require('path'),
@@ -61,6 +61,21 @@ describe('Child tests', function () {
 
 			(function () {
 				var c = new Child({ timeout: -1 });
+			}).should.throw();
+		});
+
+
+		it('with a bad value for readyOn should throw an error', function () {
+			(function () {
+				var c = new Child({ readyOn: 'fred' });
+			}).should.throw();
+
+			(function () {
+				var c = new Child({ readyOn: -1 });
+			}).should.throw();
+
+			(function () {
+				var c = new Child({ readyOn: function() {} });
 			}).should.throw();
 		});
 

@@ -4,7 +4,10 @@
 
 'use strict';
 
-var Backoff = require('../../lib/backoff'),
+
+var Backoff = process.env['SPAM_COV']
+	? require('../../lib-cov/backoff')
+	: require('../../lib/backoff'),      // i'm not exposing backoff - so need to do this for coverage
 	should = require('should'),
 	assert = require('assert');
 
@@ -24,7 +27,6 @@ describe('Backoff', function () {
 			b.maxMs.should.be.equal(60000);
 			b.multiplier.should.be.equal(2);
 			b.currentDelayMs.should.be.equal(0);
-			b.maxValue.should.be.equal(2592000000 / 2);
 		});
 
 		it('with an options object should set parameters', function () {
@@ -40,13 +42,44 @@ describe('Backoff', function () {
 			b.maxMs.should.be.equal(999);
 			b.multiplier.should.be.equal(15);
 			b.currentDelayMs.should.be.equal(0);
-			b.maxValue.should.be.equal(2592000000 / 15);
 		});
+
+		it('with an argument of the wrong type should throw', function () {
+			(function() {
+				var b = new Backoff(1);
+			}).should.throw();
+
+			(function() {
+				var b = new Backoff('cats');
+			}).should.throw();
+
+			(function() {
+				var b = new Backoff(function () {});
+			}).should.throw();
+
+		})
 	});
+
 
 	describe('backoff method with defaults', function () {
 
 		var b = new Backoff();
+
+		it('when called without a calback function should throw', function () {
+
+			(function() {
+				b.backoff();
+			}).should.throw();
+
+			(function() {
+				b.backoff(1);
+			}).should.throw();
+
+			(function() {
+				b.backoff('cats');
+			}).should.throw();
+
+		});
 
 		it('when called the first time should run immediately', function (done) {
 
@@ -219,4 +252,18 @@ describe('Backoff', function () {
 
 	});
 
+
+
+	describe('backoff method with a start and max above 30 days', function () {
+
+		var b = new Backoff( { startMs: 2593000000, maxMs: 2593000000, multiplier: 2 });
+
+		if('should set the start and max to 30 days', function () {
+
+			b.startMs.should.be.equal(2592000000);
+			b.maxMs.should.be.equal(2592000000);
+
+		});
+
+	});
 });

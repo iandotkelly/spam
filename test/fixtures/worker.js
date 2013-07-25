@@ -22,11 +22,7 @@ if (chatty) {
 }
 
 function wait(fn) {
-  setTimeout(fn, 100);
-}
-
-function forever() {
-  setTimeout(forever, 1000);
+  setTimeout(fn, 40);
 }
 
 wait(function () {
@@ -43,7 +39,10 @@ wait(function () {
           signal.ready();
           break;
         case 'listener':
-          http.createServer().listen(8765);
+          if (chatty) console.log('about to listen');
+          try {
+            http.createServer(function() {}).listen();
+          } catch (err) {}
           break;
         case 'broken':
           if (chatty) console.log('oops');
