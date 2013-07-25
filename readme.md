@@ -1,4 +1,6 @@
-# Simple Process Manager (SPaM) [![Build Status](https://secure.travis-ci.org/iandotkelly/spam.png)](http://travis-ci.org/iandotkelly/spam)
+# Simple Process Manager (SPaM)
+[![Build Status](https://secure.travis-ci.org/iandotkelly/spam.png)](http://travis-ci.org/iandotkelly/spam)
+[![Dependency Status](https://gemnasium.com/iandotkelly/spam.png)](https://gemnasium.com/iandotkelly/spam)
 
 SPAM is a module for simple node process management, and wraps the cluster module.
 
@@ -12,11 +14,11 @@ $ npm install spam
 
 To create some processes, using the spawn method.  This takes the following parameters:
 
-- Script
 - Configuration object
   - number (number of processes to spawn, e.g. 4)
   - timeout (time in milliseconds to allow each spawn to occur, before timing out)
   - strategy (either 'series', or 'parallel', to spawn one at a time, or all together)
+  - readyOn (what signal indicates the script is ready, 'ready' or 'listening' - default)
 - Callback when initialization of the module is complete
 
 ```javascript
