@@ -20,6 +20,8 @@ require('../../lib/spam').setScript('./test/fixtures/worker');
 
 describe('Child (listening script) tests.', function () {
 
+	this.timeout(5000);
+	
 	before(function () {
 		// we want to run the child script with the worker result
 		process.env['SPAMTEST'] = 'listener';

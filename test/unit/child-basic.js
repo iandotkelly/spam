@@ -21,6 +21,8 @@ spam.setMaxListeners(15);
 
 describe('Child tests', function () {
 
+	this.timeout(5000);
+
 	before(function () {
 		// we want to run the child script with the worker result
 		process.env['SPAMTEST'] = 'worker';

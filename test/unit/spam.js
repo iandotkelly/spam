@@ -19,6 +19,8 @@ spam = require(spamPath);
 
 describe('spam', function () {
 
+	this.timeout(8000);
+
 	describe('(before setScript called)', function() {
 
 		describe('setScript', function() {
