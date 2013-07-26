@@ -43,6 +43,7 @@ describe('Child tests', function () {
 			c.state.should.be.equal('new');
 			c.backoff.should.be.an.object;
 			c.readyOn.should.be.equal('listening');
+			c.disconnectTimeout.should.be.equal(2000);
 		});
 
 		it('should return  initialized object with options', function () {
