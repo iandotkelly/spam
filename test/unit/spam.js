@@ -19,7 +19,7 @@ spam = require(spamPath);
 
 describe('spam', function () {
 
-	this.timeout(8000);
+	this.timeout(12000);
 
 	describe('(before setScript called)', function() {
 
@@ -185,18 +185,14 @@ describe('spam', function () {
 							throw err;
 						}
 
-						// todo ... I don't know what to do other than wait a bit
-						setTimeout(function() {
-							spam.children.length.should.be.equal(3);
-							for (var index = 0; index < spam.children.length; index++) {
-								spam.children[index].state.should.be.equal('died');
-							}
-							done();
-						}, 1500);
-
+						spam.children.length.should.be.equal(3);
+						for (var index = 0; index < spam.children.length; index++) {
+							spam.children[index].state.should.be.equal('stopped');
+						}
+						done();
 					});
 				});
-			})
+			});
 
 		});
 	});

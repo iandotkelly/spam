@@ -62,7 +62,7 @@ describe('Child (working script) tests.', function() {
 
 	describe('Stopping a working script', function () {
 
-		it('should move the state of the child to disconnecting', function (done) {
+		it('should move the state of the child to stopped', function (done) {
 			var c = new Child({ readyOn: 'ready' });
 
 			c.spawn(function (err) {
@@ -70,9 +70,10 @@ describe('Child (working script) tests.', function() {
 					throw err;
 				}
 
-				c.disconnect();
-				c.state.should.be.equal('disconnecting');
-				done();
+				c.disconnect(function () {
+					c.state.should.be.equal('stopped');
+					done();
+				});
 			});
 		});
 

@@ -3,7 +3,7 @@
   "title": "Simple Process Manager",
   "description": "Wrapper around cluster module to slightly simplify multi-process work",
   "author": "Ian Kelly <iandotkelly@gmail.com>",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "license": "MIT",
   "homepage": "https://github.com/iandotkelly/spam",
   "main": "./lib/spam",
