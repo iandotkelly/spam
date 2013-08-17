@@ -1,9 +1,9 @@
 {
   "name": "spam",
   "title": "Simple Process Manager",
-  "description": "Wrapper around cluster module to slightly simplify multi-process work",
+  "description": "Wrapper around cluster module to simplify multi-process work",
   "author": "Ian Kelly <iandotkelly@gmail.com>",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "license": "MIT",
   "homepage": "https://github.com/iandotkelly/spam",
   "main": "./lib/spam",
@@ -28,6 +28,10 @@
   },
   "keywords": [
     "process",
-    "cluster"
+    "cluster",
+    "master",
+    "child",
+    "spawn",
+    "fork"
   ]
 }
