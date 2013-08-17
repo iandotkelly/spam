@@ -25,7 +25,17 @@ describe('signal', function () {
 			signal.ready.should.be.a.function;
 		});
 
+		it('should not throw an exception if run from master', function () {
+			assert.doesNotThrow(
+				function () {
+					signal.ready();
+				},
+				'should not throw an exception'
+			);
+		});
+
 		// todo work out how to test the signal method - cannot be run from a master
+		// might have to execute another process
 
 
 	});
