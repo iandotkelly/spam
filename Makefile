@@ -1,4 +1,4 @@
-all: test
+all: lint test
 
 test:
 	node test/mocha-runner.js
@@ -11,4 +11,11 @@ test-cov: lib-cov
 lib-cov:
 	jscoverage lib lib-cov
 
-.PHONY: all test test-cov
+lint:
+	./node_modules/.bin/jshint \
+		--verbose \
+		index.js \
+		lib/*.js \
+		test/**/*.js
+
+.PHONY: all test test-cov lint

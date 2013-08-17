@@ -1,3 +1,5 @@
+/*jshint -W068 */
+
 /**
  * @description Unit tests for the child.js module
  */
@@ -6,14 +8,13 @@
 'use strict';
 
 var Child = process.env['SPAM_COV'] ? require('../../lib-cov/child') : require('../../lib/child'),
-	should = require('should'),
-	assert = require('assert'),
 	path = require('path'),
 	spamPath = path.join(__dirname, '../../lib/spam.js');
 
+require('should');
 
-if (require.cache[spamPath]){
-  delete require.cache[spamPath];
+if (require.cache[spamPath]) {
+	delete require.cache[spamPath];
 }
 
 require('../../lib/spam').setScript('./test/fixtures/worker');
@@ -32,12 +33,12 @@ describe('Child (listening script) tests.', function () {
 		it('with callback paraneter of the wrong type should throw', function () {
 			var c = new Child();
 
-			(function() {
+			(function () {
 				c.spawn(1);
 			}).should.throw();
 
 
-			(function() {
+			(function () {
 				c.spawn('cats');
 			}).should.throw();
 

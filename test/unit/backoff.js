@@ -1,3 +1,5 @@
+/*jshint -W068 */
+
 /**
  * @description Unit tests for the child.js module
  */
@@ -7,9 +9,10 @@
 
 var Backoff = process.env['SPAM_COV']
 	? require('../../lib-cov/backoff')
-	: require('../../lib/backoff'),      // i'm not exposing backoff - so need to do this for coverage
-	should = require('should'),
-	assert = require('assert');
+	: require('../../lib/backoff');
+
+require('should'),
+require('assert');
 
 describe('Backoff', function () {
 
@@ -45,19 +48,19 @@ describe('Backoff', function () {
 		});
 
 		it('with an argument of the wrong type should throw', function () {
-			(function() {
-				var b = new Backoff(1);
+			/*jshint nonew: false */
+			(function () {
+				new Backoff(1);
 			}).should.throw();
 
-			(function() {
-				var b = new Backoff('cats');
+			(function () {
+				new Backoff('cats');
 			}).should.throw();
 
-			(function() {
-				var b = new Backoff(function () {});
+			(function () {
+				new Backoff(function () {});
 			}).should.throw();
-
-		})
+		});
 	});
 
 
@@ -67,15 +70,15 @@ describe('Backoff', function () {
 
 		it('when called without a calback function should throw', function () {
 
-			(function() {
+			(function () {
 				b.backoff();
 			}).should.throw();
 
-			(function() {
+			(function () {
 				b.backoff(1);
 			}).should.throw();
 
-			(function() {
+			(function () {
 				b.backoff('cats');
 			}).should.throw();
 
@@ -86,25 +89,26 @@ describe('Backoff', function () {
 			var start = new Date();
 
 			b.backoff(function () {
-				var end = new Date();
+				var end = new Date(),
+					elapsed = end.getTime() - start.getTime();
 
 				// the delay should be short (e.g. < 5ms)
-				var elapsed = end.getTime() - start.getTime();
 				elapsed.should.be.lessThan(5);
 				done();
 			});
 
 		});
 
-		it('when called the second time should be 100 or more ms later', function (done) {
+		it('when called the second time should be 100 or more ms later',
+			function (done) {
 
 			var start = new Date();
 
 			b.backoff(function () {
-				var end = new Date();
+				var end = new Date(),
+					elapsed = end.getTime() - start.getTime();
 
 				// the delay should be at least 100ms
-				var elapsed = end.getTime() - start.getTime();
 				elapsed.should.be.greaterThan(97);
 				elapsed.should.be.lessThan(105);
 				done();
@@ -112,16 +116,16 @@ describe('Backoff', function () {
 
 		});
 
-
-		it('when called the third time should be 200 or more ms later', function (done) {
+		it('when called the third time should be 200 or more ms later',
+			function (done) {
 
 			var start = new Date();
 
 			b.backoff(function () {
-				var end = new Date();
+				var end = new Date(),
+					elapsed = end.getTime() - start.getTime();
 
-				// the delay should be at least 200ms
-				var elapsed = end.getTime() - start.getTime();
+				// the delay should be around 200ms
 				elapsed.should.be.greaterThan(197);
 				elapsed.should.be.lessThan(205);
 				done();
@@ -130,15 +134,16 @@ describe('Backoff', function () {
 		});
 
 
-		it('when called the third time should be 400 or more ms later', function (done) {
+		it('when called the third time should be 400 or more ms later',
+			function (done) {
 
 			var start = new Date();
 
 			b.backoff(function () {
-				var end = new Date();
+				var end = new Date(),
+					elapsed = end.getTime() - start.getTime();
 
-				// the delay should be at least 400ms
-				var elapsed = end.getTime() - start.getTime();
+				// the delay should be around 400ms
 				elapsed.should.be.greaterThan(397);
 				elapsed.should.be.lessThan(405);
 				done();
@@ -151,10 +156,10 @@ describe('Backoff', function () {
 			var start = new Date();
 			b.reset();
 			b.backoff(function () {
-				var end = new Date();
+				var end = new Date(),
+				elapsed = end.getTime() - start.getTime();
 
 				// the delay should be short (e.g. < 5ms)
-				var elapsed = end.getTime() - start.getTime();
 				elapsed.should.be.lessThan(5);
 				done();
 			});
@@ -162,21 +167,19 @@ describe('Backoff', function () {
 		});
 	});
 
-
-
 	describe('backoff method with multipier of 3, startMs of 50ms and maxMs of 200ms', function () {
 
-		var b = new Backoff( { startMs: 50, maxMs: 200, multiplier: 3 });
+		var b = new Backoff({ startMs: 50, maxMs: 200, multiplier: 3 });
 
 		it('when called the first time should run immediately', function (done) {
 
 			var start = new Date();
 
 			b.backoff(function () {
-				var end = new Date();
+				var end = new Date(),
+					elapsed = end.getTime() - start.getTime();
 
 				// the delay should be short (e.g. < 5ms)
-				var elapsed = end.getTime() - start.getTime();
 				elapsed.should.be.lessThan(5);
 				done();
 			});
@@ -188,10 +191,10 @@ describe('Backoff', function () {
 			var start = new Date();
 
 			b.backoff(function () {
-				var end = new Date();
+				var end = new Date(),
+					elapsed = end.getTime() - start.getTime();
 
-				// the delay should be at least 49.9ms
-				var elapsed = end.getTime() - start.getTime();
+				// the delay should be around 50
 				elapsed.should.be.greaterThan(47);
 				elapsed.should.be.lessThan(55);
 				done();
@@ -205,10 +208,10 @@ describe('Backoff', function () {
 			var start = new Date();
 
 			b.backoff(function () {
-				var end = new Date();
+				var end = new Date(),
+					elapsed = end.getTime() - start.getTime();
 
 				// the delay should be at least 150ms
-				var elapsed = end.getTime() - start.getTime();
 				elapsed.should.be.greaterThan(147);
 				elapsed.should.be.lessThan(155);
 				done();
@@ -222,10 +225,9 @@ describe('Backoff', function () {
 			var start = new Date();
 
 			b.backoff(function () {
-				var end = new Date();
+				var end = new Date(), elapsed = end.getTime() - start.getTime();
 
-				// the delay should be at least 200ms
-				var elapsed = end.getTime() - start.getTime();
+				// the delay should be around 200ms
 				elapsed.should.be.greaterThan(197);
 				elapsed.should.be.lessThan(205);
 				done();
@@ -234,15 +236,15 @@ describe('Backoff', function () {
 		});
 
 
-		it('when called the fifth time should be 200 or more ms later', function (done) {
+		it('when called the fifth time should still be 200 or more ms later', function (done) {
 
 			var start = new Date();
 
 			b.backoff(function () {
-				var end = new Date();
+				var end = new Date(),
+					elapsed = end.getTime() - start.getTime();
 
 				// the delay should be at least 200ms
-				var elapsed = end.getTime() - start.getTime();
 				elapsed.should.be.greaterThan(197);
 				elapsed.should.be.lessThan(205);
 				done();
@@ -256,9 +258,9 @@ describe('Backoff', function () {
 
 	describe('backoff method with a start and max above 30 days', function () {
 
-		var b = new Backoff( { startMs: 2593000000, maxMs: 2593000000, multiplier: 2 });
+		var b = new Backoff({ startMs: 2593000000, maxMs: 2593000000, multiplier: 2 });
 
-		if('should set the start and max to 30 days', function () {
+		it('should set the start and max to 30 days', function () {
 
 			b.startMs.should.be.equal(2592000000);
 			b.maxMs.should.be.equal(2592000000);

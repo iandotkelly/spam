@@ -1,3 +1,4 @@
+/*jshint -W068 */
 /**
  * @description Unit tests for the child.js module
  */
@@ -6,14 +7,15 @@
 'use strict';
 
 var Child = process.env['SPAM_COV'] ? require('../../lib-cov/child') : require('../../lib/child'),
-	should = require('should'),
 	assert = require('assert'),
 	path = require('path'),
 	spamPath = path.join(__dirname, '../../lib/spam.js'),
 	spam = require('../../lib/spam');
 
-if (require.cache[spamPath]){
-  delete require.cache[spamPath];
+require('should');
+
+if (require.cache[spamPath]) {
+	delete require.cache[spamPath];
 }
 
 spam.setScript('./test/fixtures/worker');
@@ -58,27 +60,30 @@ describe('Child tests', function () {
 		});
 
 		it('with a bad value for timeout should throw an error', function () {
+			/* jshint nonew: false */
 			(function () {
-				var c = new Child({ timeout: 'fred' });
+				new Child({ timeout: 'fred' });
 			}).should.throw();
 
 			(function () {
-				var c = new Child({ timeout: -1 });
+				new Child({ timeout: -1 });
 			}).should.throw();
 		});
 
 
 		it('with a bad value for readyOn should throw an error', function () {
+			/* jshint nonew: false */
+
 			(function () {
-				var c = new Child({ readyOn: 'fred' });
+				new Child({ readyOn: 'fred' });
 			}).should.throw();
 
 			(function () {
-				var c = new Child({ readyOn: -1 });
+				new Child({ readyOn: -1 });
 			}).should.throw();
 
 			(function () {
-				var c = new Child({ readyOn: function() {} });
+				new Child({readyOn: function () {} });
 			}).should.throw();
 		});
 

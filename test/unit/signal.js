@@ -7,9 +7,10 @@
 
 var signal = process.env['SPAM_COV']
 	? require('../../lib-cov/signal')
-	: require('../../lib/signal'),      // i'm not exposing signal - so need to do this for coverage
-	should = require('should'),
+	: require('../../lib/signal'),
 	assert = require('assert');
+
+require('should');
 
 describe('signal', function () {
 

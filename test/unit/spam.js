@@ -1,3 +1,5 @@
+/*jshint -W068 */
+
 /**
  * @description Unit tests for the child.js module
  */
@@ -6,49 +8,49 @@
 'use strict';
 
 var spam,
-	should = require('should'),
-	assert = require('assert'),
 	path = require('path'),
-	spamPath = process.env['SPAM_COV'] ? path.join(__dirname, '../../lib-cov/spam.js') : path.join(__dirname, '../../lib/spam.js') 
+	spamPath = process.env['SPAM_COV']
+		? path.join(__dirname, '../../lib-cov/spam.js')
+		: path.join(__dirname, '../../lib/spam.js');
 
-if (require.cache[spamPath]){
-  delete require.cache[spamPath];
+if (require.cache[spamPath]) {
+	delete require.cache[spamPath];
 }
 
+require('should');
+require('assert');
 spam = require(spamPath);
 
 describe('spam', function () {
 
 	this.timeout(12000);
 
-	describe('(before setScript called)', function() {
+	describe('(before setScript called)', function () {
 
-		describe('setScript', function() {
+		describe('setScript', function () {
 
-			it('called with bad arguments should throw', function() {
+			it('called with bad arguments should throw', function () {
 
-				(function() {
+				(function () {
 					spam.setScript();
 				}).should.throw();
 
-				(function() {
+				(function () {
 					spam.setScript(1);
 				}).should.throw();
 
-				(function() {
-					spam.setScript(function() {});
+				(function () {
+					spam.setScript(function () {});
 				}).should.throw();
 
-			})
-
-		})
-
+			});
+		});
 	});
 
-	describe('(after setScript called)', function() {
+	describe('(after setScript called)', function () {
 
 		before(function () {
-			spam.setScript('./test/fixtures/worker')
+			spam.setScript('./test/fixtures/worker');
 			// we want to run the child script with the worker result
 			process.env['SPAMTEST'] = 'listener';
 		});
@@ -60,7 +62,7 @@ describe('spam', function () {
 			});
 
 			it('should be an event emitter', function (done) {
-				spam.on('cats', function() {
+				spam.on('cats', function () {
 					spam.removeAllListeners('cats');
 					done();
 				});
@@ -73,7 +75,7 @@ describe('spam', function () {
 
 			it('cannot be called again', function () {
 
-				(function() {
+				(function () {
 					spam.setScript('./cats.js');
 				}).should.throw();
 
@@ -85,7 +87,7 @@ describe('spam', function () {
 
 			it('requires a callback', function () {
 
-				(function() {
+				(function () {
 					spam.spawn();
 				}).should.throw();
 
@@ -93,11 +95,11 @@ describe('spam', function () {
 
 			it('will throw with an invalid timeout', function () {
 
-				(function() {
-					spam.spawn({ timeout: 'fred'}, function() {});
+				(function () {
+					spam.spawn({ timeout: 'fred'}, function () {});
 				}).should.throw();
 
-				(function() {
+				(function () {
 					spam.spawn({ timeout: -1});
 				}).should.throw();
 
@@ -105,8 +107,8 @@ describe('spam', function () {
 
 			it('will throw with an invalid readyOn', function () {
 
-				(function() {
-					spam.spawn({ readyOn: 'cats'}, function() {});
+				(function () {
+					spam.spawn({ readyOn: 'cats'}, function () {});
 				}).should.throw();
 
 			});
@@ -114,8 +116,8 @@ describe('spam', function () {
 
 			it('will throw with an invalid strategy', function () {
 
-				(function() {
-					spam.spawn({ strategy: 'cats'}, function() {});
+				(function () {
+					spam.spawn({ strategy: 'cats'}, function () {});
 				}).should.throw();
 
 			});
@@ -146,7 +148,7 @@ describe('spam', function () {
 
 			// ideally these would be separate tests, but I have to stop this anyway
 			// to run those separate tests
-			describe('and spawned children', function() {
+			describe('and spawned children', function () {
 
 				before(function () {
 					// we want to run the child script with the worker result
@@ -163,10 +165,10 @@ describe('spam', function () {
 							spam.children[index].state.should.be.equal('initialized');
 						}
 						done();
-					})
+					});
 				});
 
-				it('can be restarted in parallel', function () {
+				it('can be restarted in parallel', function (done) {
 					spam.restart({ strategy: 'parallel' }, function (err) {
 						if (err) {
 							throw err;
