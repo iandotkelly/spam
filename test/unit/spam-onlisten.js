@@ -1,27 +1,35 @@
 /*jshint -W068 */
 
 /**
- * @description Unit tests for the child.js module
+ * @description Unit tests for the spam.js module 
  */
 
 
 'use strict';
 
-var spam,
-	path = require('path'),
-	spamPath = process.env['SPAM_COV']
-		? path.join(__dirname, '../../lib-cov/spam.js')
-		: path.join(__dirname, '../../lib/spam.js');
+var path = require('path'),
+	spamRootPath = path.join(__dirname, '../../index.js'),
+	normSpamPath = path.join(__dirname, '../../lib/spam.js'),
+	covSpamPath = path.join(__dirname, '../../lib-cov/spam.js'),
+	spam;
 
-if (require.cache[spamPath]) {
-	delete require.cache[spamPath];
+// make sure no pre-existing SPAM is in the cache
+if (require.cache[covSpamPath]) {
+	delete require.cache[covSpamPath];
 }
 
-require('should');
-require('assert');
-spam = require(spamPath);
+if (require.cache[normSpamPath]) {
+	delete require.cache[normSpamPath];
+}
 
-describe('spam', function () {
+if (require.cache[spamRootPath]) {
+	delete require.cache[spamRootPath];
+}
+
+spam = require('../..');
+require('should');
+
+describe('spam - on listening', function () {
 
 	this.timeout(12000);
 
@@ -51,7 +59,7 @@ describe('spam', function () {
 
 		before(function () {
 			spam.setScript('./test/fixtures/worker');
-			// we want to run the child script with the worker result
+			// we want to run the child script with the listener result
 			process.env['SPAMTEST'] = 'listener';
 		});
 
@@ -151,8 +159,7 @@ describe('spam', function () {
 			describe('and spawned children', function () {
 
 				before(function () {
-					// we want to run the child script with the worker result
-					// as I don't want a ton of http listeners being created
+					// we want to run the child script with the listener result
 					process.env['SPAMTEST'] = 'listener';
 				});
 
@@ -195,7 +202,6 @@ describe('spam', function () {
 					});
 				});
 			});
-
 		});
 	});
 });

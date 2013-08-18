@@ -12,7 +12,6 @@ var Backoff = process.env['SPAM_COV']
 	: require('../../lib/backoff');
 
 require('should'),
-require('assert');
 
 describe('Backoff', function () {
 

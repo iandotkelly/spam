@@ -5,10 +5,27 @@
 'use strict';
 
 
-var signal = process.env['SPAM_COV']
-	? require('../../lib-cov/signal')
-	: require('../../lib/signal'),
+var path = require('path'),
+	spamRootPath = path.join(__dirname, '../../index.js'),
+	normSpamPath = path.join(__dirname, '../../lib/spam.js'),
+	covSpamPath = path.join(__dirname, '../../lib-cov/spam.js'),
+	signal,
 	assert = require('assert');
+
+// make sure no pre-existing SPAM is in the cache
+if (require.cache[covSpamPath]) {
+	delete require.cache[covSpamPath];
+}
+
+if (require.cache[normSpamPath]) {
+	delete require.cache[normSpamPath];
+}
+
+if (require.cache[spamRootPath]) {
+	delete require.cache[spamRootPath];
+}
+
+signal =  require('../..').signal;
 
 require('should');
 

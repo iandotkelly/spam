@@ -6,17 +6,29 @@
 
 'use strict';
 
-var Child = process.env['SPAM_COV'] ? require('../../lib-cov/child') : require('../../lib/child'),
-	assert = require('assert'),
-	path = require('path'),
-	spamPath = path.join(__dirname, '../../lib/spam.js'),
-	spam = require('../../lib/spam');
+var path = require('path'),
+	spamRootPath = path.join(__dirname, '../../index.js'),
+	normSpamPath = path.join(__dirname, '../../lib/spam.js'),
+	covSpamPath = path.join(__dirname, '../../lib-cov/spam.js'),
+	Child = process.env.SPAM_COV ? require('../../lib-cov/child') : require('../../lib/child'),
+	spam,
+	assert = require('assert');
 
-require('should');
-
-if (require.cache[spamPath]) {
-	delete require.cache[spamPath];
+// make sure no pre-existing SPAM is in the cache
+if (require.cache[covSpamPath]) {
+	delete require.cache[covSpamPath];
 }
+
+if (require.cache[normSpamPath]) {
+	delete require.cache[normSpamPath];
+}
+
+if (require.cache[spamRootPath]) {
+	delete require.cache[spamRootPath];
+}
+
+spam = require('../..');
+require('should');
 
 spam.setScript('./test/fixtures/worker');
 spam.setMaxListeners(15);
@@ -48,7 +60,7 @@ describe('Child tests', function () {
 			c.disconnectTimeout.should.be.equal(2000);
 		});
 
-		it('should return  initialized object with options', function () {
+		it('should return initialized object with options', function () {
 			var c = new Child({ readyOn: 'ready', timeout: 10000 });
 
 			c.should.be.an.object;

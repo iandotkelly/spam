@@ -1,5 +1,0 @@
-
-var http = require('http');
-var client = http.createClient();
-
-var request = client.request('GET', '/amazeme', )

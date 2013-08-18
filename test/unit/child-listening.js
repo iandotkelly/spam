@@ -7,17 +7,30 @@
 
 'use strict';
 
-var Child = process.env['SPAM_COV'] ? require('../../lib-cov/child') : require('../../lib/child'),
-	path = require('path'),
-	spamPath = path.join(__dirname, '../../lib/spam.js');
+var path = require('path'),
+	spamRootPath = path.join(__dirname, '../../index.js'),
+	normSpamPath = path.join(__dirname, '../../lib/spam.js'),
+	covSpamPath = path.join(__dirname, '../../lib-cov/spam.js'),
+	Child = process.env.SPAM_COV ? require('../../lib-cov/child') : require('../../lib/child'),
+	spam;
 
-require('should');
-
-if (require.cache[spamPath]) {
-	delete require.cache[spamPath];
+// make sure no pre-existing SPAM is in the cache
+if (require.cache[covSpamPath]) {
+	delete require.cache[covSpamPath];
 }
 
-require('../../lib/spam').setScript('./test/fixtures/worker');
+if (require.cache[normSpamPath]) {
+	delete require.cache[normSpamPath];
+}
+
+if (require.cache[spamRootPath]) {
+	delete require.cache[spamRootPath];
+}
+
+spam = require('../..');
+require('should');
+
+spam.setScript('./test/fixtures/worker');
 
 describe('Child (listening script) tests.', function () {
 

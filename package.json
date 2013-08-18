@@ -6,7 +6,7 @@
   "version": "0.2.4",
   "license": "MIT",
   "homepage": "https://github.com/iandotkelly/spam",
-  "main": "./lib/spam",
+  "main": "./index",
   "repository": {
     "type": "git",
     "url": "git://github.com/iandotkelly/spam.git"

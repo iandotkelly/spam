@@ -1,10 +1,33 @@
 'use strict';
 
-var testType = process.env['SPAMTEST'],
+
+var path = require('path'),
+	spamRootPath = path.join(__dirname, '../../index.js'),
+	normSpamPath = path.join(__dirname, '../../lib/spam.js'),
+	covSpamPath = path.join(__dirname, '../../lib-cov/spam.js'),
+	signal,
+	testType = process.env['SPAMTEST'],
 	chatty = process.env['SPAMTESTCHATTY'] === 'true',
-	signal = require('../../lib/spam').signal,
 	http = require('http');
 
+// make sure no pre-existing SPAM is in the cache
+if (require.cache[covSpamPath]) {
+	delete require.cache[covSpamPath];
+}
+
+if (require.cache[normSpamPath]) {
+	delete require.cache[normSpamPath];
+}
+
+if (require.cache[spamRootPath]) {
+	delete require.cache[spamRootPath];
+}
+
+signal = require('../..').signal;
+
+if (!testType) {
+	throw new Error('No test type defined');
+}
 
 if (chatty) {
 	switch (testType) {
@@ -18,7 +41,7 @@ if (chatty) {
 		console.log('Hi, I\'m broken');
 		break;
 	default:
-		throw new Error('Unexpected testType ' + testType);
+		console.log('Unexpected testType ' + testType);
 	}
 }
 
