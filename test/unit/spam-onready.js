@@ -26,6 +26,14 @@ if (require.cache[spamRootPath]) {
 	delete require.cache[spamRootPath];
 }
 
+if (require.cache[path.join(__dirname, '../../lib/signal.js')]) {
+	delete require.cache[path.join(__dirname, '../../lib/signal.js')];
+}
+if (require.cache[path.join(__dirname, '../../lib-cov/signal.js')]) {
+	delete require.cache[path.join(__dirname, '../../lib-cov/signal.js')];
+}
+
+
 spam = require('../..');
 require('should');
 
