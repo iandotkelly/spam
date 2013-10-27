@@ -65,7 +65,7 @@ wait(function () {
 			}
 
 			wait(function () {
-				/* jshint maxcomplexity:8 */
+				/* jshint maxcomplexity:10 */
 
 				switch (testType) {
 				case 'worker':
@@ -86,9 +86,19 @@ wait(function () {
 					break;
 				case 'broken':
 					if (chatty) {
-						console.log('oops');
+						console.log('about to throw an excepton');
 					}
 					throw new Error('oops');
+				case 'badexit':
+					// signal that we are ready
+					signal.ready();
+					// but die in 3 seconds
+					setTimeout(function () {
+						if (chatty) {
+							console.log('about to exit with code 1');
+						}
+						process.exit(1);
+					}, 5000);
 				}
 			});
 		});
