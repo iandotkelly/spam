@@ -16,8 +16,8 @@
   },
   "devDependencies": {
     "jshint": "~2.3.0",
-    "should": "~2.0.2",
-    "mocha": "~1.13.0",
+    "should": "~2.1.0",
+    "mocha": "~1.14.0",
     "globs": "~0.1.0"
   },
   "engines": {
