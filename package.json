@@ -27,7 +27,7 @@
     "test": "make"
   },
   "keywords": [
-    "multi-process"
+    "multi-process",
     "process",
     "cluster",
     "master",
