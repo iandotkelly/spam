@@ -16,9 +16,9 @@
   },
   "devDependencies": {
     "globs": "^0.1.2",
-    "jshint": "^2.5.2",
-    "mocha": "^1.20.1",
-    "should": "^4.0.4"
+    "jshint": "^2.5.6",
+    "mocha": "^2.0.1",
+    "should": "^4.1.0"
   },
   "engines": {
     "node": ">=0.10"
