@@ -2,7 +2,7 @@
 [![Build Status](https://secure.travis-ci.org/iandotkelly/spam.png)](http://travis-ci.org/iandotkelly/spam)
 [![Dependency Status](https://gemnasium.com/iandotkelly/spam.png)](https://gemnasium.com/iandotkelly/spam)
 
-SPAM is a module for simple node process management, and wraps the cluster module.
+SPAM is a module for simple node.js and io.js process management, and wraps the cluster module.
 
 ## Use
 
@@ -65,7 +65,7 @@ spam.on('log', function(message) {
 });
 ```
 
-If you want to gracefully restart all the processes, by starting a new worker before killing 
+If you want to gracefully restart all the processes, by starting a new worker before killing
 the old worker, do this with the restart method.
 
 ```javascript
@@ -137,4 +137,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-
