@@ -109,7 +109,7 @@ describe('Backoff', function () {
 
 				// the delay should be at least 100ms
 				elapsed.should.be.greaterThan(97);
-				elapsed.should.be.lessThan(105);
+				elapsed.should.be.lessThan(110);
 				done();
 			});
 
@@ -126,7 +126,7 @@ describe('Backoff', function () {
 
 				// the delay should be around 200ms
 				elapsed.should.be.greaterThan(197);
-				elapsed.should.be.lessThan(205);
+				elapsed.should.be.lessThan(210);
 				done();
 			});
 
@@ -144,7 +144,7 @@ describe('Backoff', function () {
 
 				// the delay should be around 400ms
 				elapsed.should.be.greaterThan(397);
-				elapsed.should.be.lessThan(405);
+				elapsed.should.be.lessThan(410);
 				done();
 			});
 
@@ -195,7 +195,7 @@ describe('Backoff', function () {
 
 				// the delay should be around 50
 				elapsed.should.be.greaterThan(47);
-				elapsed.should.be.lessThan(55);
+				elapsed.should.be.lessThan(60);
 				done();
 			});
 
@@ -212,7 +212,7 @@ describe('Backoff', function () {
 
 				// the delay should be at least 150ms
 				elapsed.should.be.greaterThan(147);
-				elapsed.should.be.lessThan(155);
+				elapsed.should.be.lessThan(160);
 				done();
 			});
 
@@ -228,7 +228,7 @@ describe('Backoff', function () {
 
 				// the delay should be around 200ms
 				elapsed.should.be.greaterThan(197);
-				elapsed.should.be.lessThan(205);
+				elapsed.should.be.lessThan(210);
 				done();
 			});
 
@@ -245,7 +245,7 @@ describe('Backoff', function () {
 
 				// the delay should be at least 200ms
 				elapsed.should.be.greaterThan(197);
-				elapsed.should.be.lessThan(205);
+				elapsed.should.be.lessThan(210);
 				done();
 			});
 
