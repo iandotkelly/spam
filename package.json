@@ -12,7 +12,8 @@
     "url": "git://github.com/iandotkelly/spam.git"
   },
   "dependencies": {
-    "async": "2.1.4"
+    "async": "2.1.4",
+    "compare-versions": "3.0.0"
   },
   "devDependencies": {
     "globs": "^0.1.3",
