@@ -1,4 +1,4 @@
-all: lint test
+all: test
 
 test:
 	node test/mocha-runner.js
