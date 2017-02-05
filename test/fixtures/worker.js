@@ -40,6 +40,9 @@ if (chatty) {
 	case 'broken':
 		console.log('Hi, I\'m broken');
 		break;
+	case 'badexit':
+		console.log('Hi, I\'m going to exit with code 1');
+		break
 	default:
 		console.log('Unexpected testType ' + testType);
 	}
@@ -91,6 +94,9 @@ wait(function () {
 					throw new Error('oops');
 				case 'badexit':
 					// signal that we are ready
+					if (chatty) {
+						console.log('about to signal ready');
+					}
 					signal.ready();
 					// but die in 3 seconds
 					setTimeout(function () {

@@ -7,18 +7,13 @@
 
 var path = require('path'),
 	spamRootPath = path.join(__dirname, '../../index.js'),
-	normSpamPath = path.join(__dirname, '../../lib/spam.js'),
-	covSpamPath = path.join(__dirname, '../../lib-cov/spam.js'),
+	spamPath = path.join(__dirname, '../../lib/spam.js'),
 	signal,
 	assert = require('assert');
 
 // make sure no pre-existing SPAM is in the cache
-if (require.cache[covSpamPath]) {
-	delete require.cache[covSpamPath];
-}
-
-if (require.cache[normSpamPath]) {
-	delete require.cache[normSpamPath];
+if (require.cache[spamPath]) {
+	delete require.cache[spamPath];
 }
 
 if (require.cache[spamRootPath]) {

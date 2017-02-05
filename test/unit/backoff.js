@@ -7,9 +7,7 @@
 'use strict';
 
 
-var Backoff = process.env['SPAM_COV']
-	? require('../../lib-cov/backoff')
-	: require('../../lib/backoff');
+var Backoff = require('../../lib/backoff');
 
 require('should'),
 
