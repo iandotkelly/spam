@@ -1,4 +1,5 @@
 # Simple Process Manager (SPaM)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5db9a218c0564ddaa136494c23d4944a)](https://www.codacy.com/app/iandotkelly/spam?utm_source=github.com&utm_medium=referral&utm_content=iandotkelly/spam&utm_campaign=badger)
 [![Build Status](https://secure.travis-ci.org/iandotkelly/spam.png)](http://travis-ci.org/iandotkelly/spam)
 [![Dependency Status](https://gemnasium.com/iandotkelly/spam.png)](https://gemnasium.com/iandotkelly/spam)
 
