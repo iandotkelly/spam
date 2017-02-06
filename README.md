@@ -1,5 +1,5 @@
 # Simple Process Manager (SPaM)
-[![Version](https://img.shields.io/npm/v/spam.svg)](https://www.npmjs.com/package/nlf) [![Downloads](https://img.shields.io/npm/dm/nlf.svg)](https://www.npmjs.com/package/nlf)
+[![Version](https://img.shields.io/npm/v/spam.svg)](https://www.npmjs.com/package/spam) [![Downloads](https://img.shields.io/npm/dm/spam.svg)](https://www.npmjs.com/package/spam)
 [![Build Status](https://secure.travis-ci.org/iandotkelly/spam.svg)](http://travis-ci.org/iandotkelly/spam)
 [![Dependency Status](https://gemnasium.com/iandotkelly/spam.svg)](https://gemnasium.com/iandotkelly/spam)
 [![Coverage Status](https://coveralls.io/repos/github/iandotkelly/spam/badge.svg?branch=master)](https://coveralls.io/github/iandotkelly/spam?branch=master)
