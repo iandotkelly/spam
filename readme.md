@@ -1,6 +1,7 @@
 # Simple Process Manager (SPaM)
 [![Build Status](https://secure.travis-ci.org/iandotkelly/spam.png)](http://travis-ci.org/iandotkelly/spam)
 [![Dependency Status](https://gemnasium.com/iandotkelly/spam.png)](https://gemnasium.com/iandotkelly/spam)
+[![Coverage Status](https://coveralls.io/repos/github/iandotkelly/spam/badge.svg?branch=master)](https://coveralls.io/github/iandotkelly/spam?branch=master)
 
 SPAM is a module for simple node.js and io.js process management, and wraps the cluster module.
 

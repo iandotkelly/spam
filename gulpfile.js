@@ -5,9 +5,14 @@
 var gulp = require('gulp');
 var mocha = require('gulp-mocha');
 var istanbul = require('gulp-istanbul');
+var coveralls = require('gulp-coveralls');
+var runSequence = require('run-sequence');
 
 var tests = 'test/unit/**/*.js';
 var code = 'lib/**/*.js';
+
+// set coveralls environmental variable
+process.env['COVERALLS_REPO_TOKEN'] = 'hQA4FW4KHhVf0zkMVy7Hh1dT55ztCoHNx';
 
 gulp.task('pre-coverage', function () {
 	return gulp.src(code)
@@ -22,24 +27,30 @@ gulp.task('test-coverage', ['pre-coverage'], function () {
 		.pipe(mocha())
 		// Creating the reports after tests ran
 		.pipe(istanbul.writeReports())
-		.once('error', () => {
-				process.exit(1);
-		})
-		.once('end', () => {
-			process.exit();
-		})
 });
 
-gulp.task('test', () =>
-	gulp.src(tests, {read: false})
-	.pipe(mocha({reporter: 'spec'}))
-	.once('error', () => {
-		process.exit(1);
-	})
-	.once('end', () => {
-  	process.exit();
-	})
-);
+gulp.task('coveralls', function () {
+	return gulp.src('coverage/lcov.info')
+		.pipe(coveralls())
+})
 
-gulp.task('default', [ 'test' ]);
-gulp.task('coverage', [ 'test-coverage' ]);
+gulp.task('test', function() {
+	return gulp.src(tests, {read: false})
+	.pipe(mocha({reporter: 'spec'}))
+});
+
+gulp.task('end', function() {
+	process.exit(0);
+});
+
+gulp.task('travis', function() {
+	runSequence('test-coverage', 'coveralls', 'end');
+});
+
+gulp.task('coverage', function() {
+	runSequence('test-coverage', 'end')
+});
+
+gulp.task('default', function() {
+	runSequence('test', 'end')
+})
