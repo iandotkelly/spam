@@ -27,7 +27,7 @@
     "node": ">=0.10"
   },
   "scripts": {
-    "test": "gulp"
+    "test": "gulp travis"
   },
   "keywords": [
     "multi-process",
