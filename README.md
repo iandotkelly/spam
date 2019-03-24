@@ -1,17 +1,21 @@
 # Simple Process Manager (SPaM)
 [![Version](https://img.shields.io/npm/v/spam.svg)](https://www.npmjs.com/package/spam) [![Downloads](https://img.shields.io/npm/dm/spam.svg)](https://www.npmjs.com/package/spam)
 [![Build Status](https://secure.travis-ci.org/iandotkelly/spam.svg)](http://travis-ci.org/iandotkelly/spam)
-[![Dependency Status](https://gemnasium.com/iandotkelly/spam.svg)](https://gemnasium.com/iandotkelly/spam)
+[![Known Vulnerabilities](https://snyk.io/test/github/iandotkelly/spam/badge.svg?targetFile=package.json)](https://snyk.io/test/github/iandotkelly/spam?targetFile=package.json)
 [![Coverage Status](https://coveralls.io/repos/github/iandotkelly/spam/badge.svg?branch=master)](https://coveralls.io/github/iandotkelly/spam?branch=master)
 
 SPAM is a module for simple node.js process management, and wraps the cluster module.
 
 ## Use
 
+Yarn is recommended as a package manager, but npm can be used as an alternative.
+
 To install:
 
 ```sh
-$ npm install spam
+# install yarn if required
+$ npm install -g yarn
+$ yarn add spam
 ```
 
 To create some processes, using the spawn method.  This takes the following parameters:
@@ -105,13 +109,17 @@ process.send({ cmd: 'ready'});
 To run the npm unit tests, install development dependencies and run tests with 'npm test' or 'make'.
 
 ```sh
-$ cd node_modules/spam
-$ npm install
-$ npm test
+# clone repo and install dependencies
+$ git clone git@github.com:iandotkelly/spam.git
+$ cd spam
+$ yarn
+# run tests
+$ yarn test
 ```
-If you contribute to the project, tests are written in [mocha](http://visionmedia.github.com/mocha/), using [should.js](https://github.com/visionmedia/should.js/) or the node.js assert module.
 
-Coverage can be measured using the [node-jscoverage](https://github.com/visionmedia/node-jscoverage) project.  After installing jscoverage from github, just:
+Coverage can be measured after running the tests, and an html coverage report is written in the `coverage/lcov-report` directory:
 ```sh
-$ make test-cov
+$ open coverage/lcov-report/index.html
 ```
+
+If you contribute to the project, tests are written in [mocha](http://visionmedia.github.com/mocha/), using [should.js](https://github.com/visionmedia/should.js/) or the node.js assert module.

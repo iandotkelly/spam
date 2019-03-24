@@ -12,16 +12,16 @@
     "url": "git://github.com/iandotkelly/spam.git"
   },
   "dependencies": {
-    "async": "2.1.4",
-    "compare-versions": "3.0.0"
+    "async": "2.6.2",
+    "compare-versions": "3.4.0"
   },
   "devDependencies": {
-    "gulp": "^3.9.1",
+    "gulp": "3.9.1",
     "gulp-coveralls": "^0.1.4",
     "gulp-istanbul": "^1.1.1",
-    "gulp-mocha": "^3.0.1",
-    "run-sequence": "^1.2.2",
-    "should": "^11.2.0"
+    "gulp-mocha": "3.0.1",
+    "run-sequence": "2.2.1",
+    "should": "13.2.3"
   },
   "engines": {
     "node": ">=0.10"
