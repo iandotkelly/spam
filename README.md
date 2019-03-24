@@ -4,7 +4,7 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/iandotkelly/spam/badge.svg?targetFile=package.json)](https://snyk.io/test/github/iandotkelly/spam?targetFile=package.json)
 [![Coverage Status](https://coveralls.io/repos/github/iandotkelly/spam/badge.svg?branch=master)](https://coveralls.io/github/iandotkelly/spam?branch=master)
 
-SPAM is a module for simple node.js process management, and wraps the cluster module.
+SPAM is a module for simple node.js process management, and wraps the cluster module.  It has nothing to do with email spam.
 
 ## Use
 
@@ -14,8 +14,8 @@ To install:
 
 ```sh
 # install yarn if required
-$ npm install -g yarn
-$ yarn add spam
+npm install -g yarn
+yarn add spam
 ```
 
 To create some processes, using the spawn method.  This takes the following parameters:
@@ -110,16 +110,16 @@ To run the npm unit tests, install development dependencies and run tests with '
 
 ```sh
 # clone repo and install dependencies
-$ git clone git@github.com:iandotkelly/spam.git
-$ cd spam
-$ yarn
+git clone git@github.com:iandotkelly/spam.git
+cd spam
+yarn
 # run tests
-$ yarn test
+yarn test
 ```
 
 Coverage can be measured after running the tests, and an html coverage report is written in the `coverage/lcov-report` directory:
 ```sh
-$ open coverage/lcov-report/index.html
+open coverage/lcov-report/index.html
 ```
 
 If you contribute to the project, tests are written in [mocha](http://visionmedia.github.com/mocha/), using [should.js](https://github.com/visionmedia/should.js/) or the node.js assert module.
