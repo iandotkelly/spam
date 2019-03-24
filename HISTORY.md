@@ -1,3 +1,10 @@
+0.2.9 (March 24, 2019)
+====================
+
+* Update dependencies
+* Move package management to yarn, though npm will still work
+* Confirm tests run on node 8, 9, 10 & 11
+
 0.2.8 (February 5, 2017)
 ====================
 

@@ -34,40 +34,40 @@ var spam = require('spam');
 // created in parallel, with a timeout of 60 seconds
 spam.setScript('./myscript.js');
 spam.spawn(
-	{
-		number: 4,
-		timeout: 60000,
-		strategy: 'parallel'
-	}, function(err) {
-			// callback occurs when all processes have declared they are working
-			// or a timeout occurs
-			if (err) {
-				console.log('oops');
-			}
+  {
+    number: 4,
+    timeout: 60000,
+    strategy: 'parallel'
+  }, function(err) {
+      // callback occurs when all processes have declared they are working
+      // or a timeout occurs
+      if (err) {
+        console.log('oops');
+      }
 });
 
 // to create 2 processes callback is called when 'ready' message sent, not on 'listen'
 // created in series, with no timeout
 spam.spawn(
-	{
-		number: 2,
-		timeout: 0,
-		strategy: 'serial',
-		readyOn: 'ready'
-	},  function(err) {
-			// callback occurs when all processes have declared they are working
-			// or a timeout occurs
-			if (err) {
-				console.log('oops');
-			}
+  {
+    number: 2,
+    timeout: 0,
+    strategy: 'serial',
+    readyOn: 'ready'
+  },  function(err) {
+      // callback occurs when all processes have declared they are working
+      // or a timeout occurs
+      if (err) {
+        console.log('oops');
+      }
 });
 ```
 
 If you want to log what's going on in SPAM
 ```javascript
 spam.on('log', function(message) {
-	// do some logging
-	console.log('SPAM: ' + message);
+  // do some logging
+  console.log('SPAM: ' + message);
 });
 ```
 
@@ -77,9 +77,9 @@ the old worker, do this with the restart method.
 ```javascript
 // graceful restart of all the processes
 spam.restart({ strategy: 'series' }, function(err) {
-	if (err) {
-		console.log('oops');
-	}
+  if (err) {
+    console.log('oops');
+  }
 });
 ```
 
@@ -87,7 +87,7 @@ To stop all the processes:
 ```javascript
 // stop all
 spam.stop(function() {
-	console.log('stop initiated')
+  console.log('stop initiated')
 });
 ```
 
